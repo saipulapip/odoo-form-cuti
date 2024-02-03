@@ -1,0 +1,129 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+	<data>
+		<!-- formulir.cuti tree view -->
+		<record id="formulir_cuti_view_tree" model="ir.ui.view">
+			<field name="name">formulir.cuti.view.tree</field>
+			<field name="model">formulir.cuti</field>
+			<field name="arch" type="xml">
+				<tree>
+					<!-- Add your fields here -->
+					<field name="create_uid" string="name"/>
+					<field name="wilayah"/>
+					<field name="nik"/>
+					<field name="jabatan"/>
+					<!-- <field name="jenis_cuti"/> -->
+				</tree>
+			</field>
+		</record>
+		<!-- formulir.cuti form view -->
+		<record id="formulir_cuti_view_form" model="ir.ui.view">
+			<field name="name">formulir.cuti.view.form</field>
+			<field name="model">formulir.cuti</field>
+			<field name="arch" type="xml">
+				<form string="">
+					<header>
+						<button string="Proses" name="action_confirm" type="object" class="oe_highlight" states="draft"/>
+						<button string="Selesai" name="action_done" type="object" class="oe_highlight" states="approve" groups="formulir_cuti.group_admin"/>
+						<button string="review" name="action_review" type="object" class="oe_highlight" states="confirm" groups="formulir_cuti.group_manager"/>
+						<button string="Setuju" name="action_approve" type="object" class="oe_highlight" states="review" groups="formulir_cuti.group_manager"/>
+						<button string="Back to approve" name="action_approve" type="object" class="" states="done"/>
+						<button string="Back to review" name="action_review" type="object" class="" states="approve"/>
+						<button string="Back to confrim" name="action_confirm" type="object" class="" states="review"/>
+						<button string="Reset" name="action_draft" type="object" class="" states="confirm,done"/>
+						<button string="Reject" name="action_Reject" type="object" class="oe_highlight btn-danger" states="Review" groups="formulir_cuti.group_manager"/>
+						<field name="state" widget="statusbar" statusbar_visible="draft,confirm,review,approve,done,Reject"/>
+					</header>
+					<sheet>
+						<widget name="web_ribbon" text="Selesai" bg_color="bg-info" attrs="{'invisible':[('state','!=','done')]}" />
+						<group string="Diisi oleh karyawan yang bersangkutan">
+							<group>
+								<field name="create_uid" readonly="1" string="Nama"/>
+								<field name="wilayah"/> 
+							</group>
+							<group>
+								<field name="nik"/>
+								<field name="jabatan"/>
+							</group>
+							<group string="Permohonan Cuti">
+							</group>
+						</group>
+						<group>
+							<group>
+								<field name="jml_hari"/>
+								<field name="alamat_cuti"/>
+								<field name="no_tlp"/>
+							</group>
+							<group>
+								<field name="ttd_pemohon"/>
+							</group>
+						</group>
+						<notebook>
+							<page string="Rincian Tanggal Cuti">
+								<field name="line_ids">
+									<tree editable="bottom">
+										<field name="tanggal_cuti"/>
+										<field name="jenis_cuti"/>
+										<field name="cuti_lainya"/>
+										<field name="approval" readonly="1"/>
+										<field name="approval_state_check" invisible="1"/>
+										<button string="Approve" name="action_approve" type="object" class="oe_highlight" groups="formulir_cuti.group_manager" attrs="{'invisible': ['|', ('approval', '=', 'approved'), ('approval_state_check', '=', True)]}"/>
+										<button string="Reject" name="action_Reject" type="object" class="oe_highlight btn-danger" groups="formulir_cuti.group_manager" attrs="{'invisible': ['|', ('approval', '=', 'rejected'), ('approval_state_check', '=', True)]}"/>
+									</tree>
+								</field>
+							</page>
+						</notebook>
+						<group string="**Diisi oleh Manager/Kadif/Direksi" groups="formulir_cuti.group_manager">
+							<group>
+								<field name="jml_cuti"/>
+								<field name="alasan"/>
+							</group>
+							<group>
+								<field name="ttd_manager"/>
+							</group>
+						</group>
+						<group string="***Diisi oleh HRD/GA" groups="formulir_cuti.group_admin">
+							<group>
+								<field name="jatah_cuti"/>
+								<field name="jml_cuti2"/>
+								<field name="cd_cuti"/>
+							</group>
+							<group>
+								<field name="sisa_cuti"/>
+								<field name="ttd_hrd"/>
+							</group>
+						</group>
+						<notebook>
+							<page name="metadata" string="Metadata">
+								<group>
+									<field name="create_uid"/>
+									<field name="create_date"/>
+									<field name="write_uid"/>
+									<field name="write_date"/>
+									<field name="id"/>
+								</group>
+							</page>
+						</notebook>
+					</sheet>
+				</form>
+			</field>
+		</record>
+		<record id="formulir_cuti_action" model="ir.actions.act_window">
+			<field name="name">formulir Cuti</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">formulir.cuti</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">
+					<!-- Add Text Here -->
+				</p><p>
+					<!-- More details about what a user can do with this object will be OK --> 
+				
+				</p>
+			</field>
+		</record>
+		<!-- This Menu Item must have a parent and an action -->
+		<menuitem id="formulir_cuti_menu_act" name="Formulir Cuti" parent="pengaturan_menu_categ" action="formulir_cuti_action" sequence="10"/>
+	</data>
+	
+</odoo>

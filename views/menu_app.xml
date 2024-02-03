@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+	<data>
+		<!-- This Menu Item will appear in the Upper bar, that's why It needs NO parent or action -->
+		<menuitem id="formulir_cuti_menu_root" name="Formulir Cuti" sequence="10"  web_icon="formulir_cuti,static/description/icon.kentong.png" />
+		<!-- This Menu Item Must have a parent -->
+		<menuitem id="pengaturan_menu_categ" name="pengaturan" parent="formulir_cuti_menu_root" sequence="20"/>
+
+	
+	</data>
+	
+</odoo>

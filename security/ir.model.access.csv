@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_formulir_cuti_user,access_formulir_cuti_user,model_formulir_cuti,group_pengguna,1,1,1,0
+access_formulir_cuti_manager,access_formulir_cuti_manager,model_formulir_cuti,group_manager,1,1,1,0
+access_formulir_cuti_admin,access_formulir_cuti_admin,model_formulir_cuti,group_admin,1,1,1,1
+access_formulir_cuti_line,access_formulir_cuti_line,model_formulir_cuti_line,,1,1,1,1
+
+
